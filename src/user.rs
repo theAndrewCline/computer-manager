@@ -8,17 +8,27 @@ pub struct User {
     last_name: String,
 }
 
-#[get("/")]
-pub fn get_all_route() -> Json<User> {
-    let first_name = String::from("Andrew");
-    let last_name = String::from("Cline");
-    let id = 1;
-
-    let user = User {
-        first_name,
-        last_name,
-        id,
+fn users() -> Vec<User> {
+    let andrew = User {
+        first_name: String::from("Andrew"),
+        last_name: String::from("Cline"),
+        id: 1,
     };
 
-    Json(user)
+    let kristin = User {
+        first_name: String::from("Kristin"),
+        last_name: String::from("Cline"),
+        id: 2,
+    };
+
+    vec![andrew, kristin]
+}
+
+fn user_by_id(id: u32) -> Option<&'static User> {
+    users().filter(|user| user.id == id)
+}
+
+#[get("/")]
+pub fn get_all_route() -> Json<Vec<User>> {
+    Json(users())
 }

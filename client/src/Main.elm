@@ -31,7 +31,7 @@ user_list_decoder =
 
 get_users =
     Http.get
-        { url = "localhost:8000/users"
+        { url = "http://localhost:8000/users"
         , expect = Http.expectJson GotUsers user_list_decoder
         }
 

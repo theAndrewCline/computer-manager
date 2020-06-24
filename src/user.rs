@@ -1,5 +1,8 @@
+use rocket;
 use rocket_contrib::json::Json;
 use serde::{Deserialize, Serialize};
+
+use rocket::{get, routes, Route};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct User {
@@ -24,11 +27,11 @@ fn users() -> Vec<User> {
     vec![andrew, kristin]
 }
 
-fn user_by_id(id: u32) -> Option<&'static User> {
-    users().filter(|user| user.id == id)
+#[get("/")]
+fn get_all_route() -> Json<Vec<User>> {
+    Json(users())
 }
 
-#[get("/")]
-pub fn get_all_route() -> Json<Vec<User>> {
-    Json(users())
+pub fn routes() -> Vec<Route> {
+    routes![get_all_route]
 }

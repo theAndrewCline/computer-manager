@@ -21,7 +21,7 @@ type alias User =
 user_decoder =
     map3 User
         (field "first_name" string)
-        (field "first_name" string)
+        (field "last_name" string)
         (field "id" int)
 
 
@@ -84,7 +84,7 @@ view model =
             []
         , ul []
             (List.map
-                (\user -> li [] [ text user.first_name, text user.last_name ])
+                (\user -> li [] [ text (user.first_name ++ " " ++ user.last_name) ])
                 model.users
             )
         ]

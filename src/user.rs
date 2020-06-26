@@ -35,3 +35,12 @@ fn get_all_route() -> Json<Vec<User>> {
 pub fn routes() -> Vec<Route> {
     routes![get_all_route]
 }
+
+#[cfg(test)]
+mod tests {
+
+    #[test]
+    fn initial_test() {
+        assert_eq!(true, true)
+    }
+}

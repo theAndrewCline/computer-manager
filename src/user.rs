@@ -38,9 +38,21 @@ pub fn routes() -> Vec<Route> {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use rocket::http::{ContentType, Status};
+    use rocket::local::Client;
 
     #[test]
-    fn initial_test() {
-        assert_eq!(true, true)
+    fn get_all_route_test() {
+        let rocket = rocket::ignite().mount("/", routes());
+        let client = Client::new(rocket).expect("valid rocket instance");
+
+        let mut response = client.get("/").dispatch();
+
+        let expected = serde_json::to_string(&users()).unwrap();
+
+        assert_eq!(response.status(), Status::Ok);
+        assert_eq!(response.content_type(), Some(ContentType::JSON));
+        assert_eq!(response.body_string(), Some(expected));
     }
 }

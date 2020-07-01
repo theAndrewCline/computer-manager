@@ -63,14 +63,12 @@ mod tests {
         assert_eq!(response.body_string(), Some(expected));
     }
 
-
     #[test]
     fn get_by_id() {
         let rocket = rocket::ignite().mount("/", routes());
         let client = Client::new(rocket).expect("valid rocket instance");
 
         let mut response = client.get("/1").dispatch();
-
 
         let andrew = User {
             first_name: String::from("Andrew"),
@@ -84,7 +82,6 @@ mod tests {
         assert_eq!(response.content_type(), Some(ContentType::JSON));
         assert_eq!(response.body_string(), Some(expected));
     }
-
 
     #[test]
     fn get_user_with_bad_id() {
